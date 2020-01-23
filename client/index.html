@@ -15,8 +15,15 @@
 
     function submitChannel(){
       const channelValue = document.querySelector('.channel-input').value
-      //send to server
+      fetch('http://localhost:3000/creators', {
+        method: 'POST',
+        headers: {
+          'Content-Tyep': 'application/json',
+        },
+        body: JSON.stringify({channelURL})
+      })
     }
+     
     function newEl(type, attrs={}){
       const el = document.createElement(type)
       for (let attr in attrs) {
@@ -26,22 +33,24 @@
       }
       return el
     }
+    async function loadCreators(){
+      const res = await fetch('http://localhost:3000/creators')
+      const creators = await res.json()
 
-    const creators = [
-      {name: "omer", img: 'https://'},
-      {name: "jiaqi", img: 'https://'},
-      {name: "dylan", img: 'https://'},
-    ]
-    const ctr = document.querySelector('.container')
+      const ctr = document.querySelector('.container')
 
-    creators.forEach(creator => {
-      const card = newEl('div', {class: 'card'})
+     creators.forEach(creator => {
+      const card = newEl('div', {class: 'card'}) 
       const title = newEl('h4', {innerText: creator.name})
       const img = newEl('img', {src: creator.img})
       card.appendChild(title)
       card.appendChild(img)
       ctr.appendChild(card)
-    })
+})
+    }
+
+    loadCreators()
+   
 
   </script>
   <style>
