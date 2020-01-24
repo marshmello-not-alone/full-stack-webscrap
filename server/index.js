@@ -4,6 +4,8 @@ const port = 3000
 
 const bodyParser = require('body-parser')
 
+const scrapers = require('./scrapers');
+
 app.use(bodyParser.json())
 
 //custom middle to disable security rules for local development
@@ -25,7 +27,8 @@ app.get('/creators', async(req, res) => {
 
 app.post('/creators', async(req, res) => {
   console.log(req.body)
-  // todo: Scrape channel
+    const channelData = await scrapers.scrapeChannel(req.body.channelURL)
+  console.log({channelData})
   // todo: Add to DB
   res.send('success')
 })

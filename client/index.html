@@ -9,12 +9,15 @@
 <body>
   <h1>SetThemUp</h1>
   <h4>Add a new creator</h4>
-  <input class="channel-input" type="text" placeholder="paste YouTube Url">
+  <input class="channel-input" type="text" placeholder="paste instagram Url">
   <button type="submit" onClick="submitChannel()">submit</button>
+
+  <div class="container"></div>
+
   <script>
 
     function submitChannel(){
-      const channelValue = document.querySelector('.channel-input').value
+      const channelURL = document.querySelector('.channel-input').value
       fetch('http://localhost:3000/creators', {
         method: 'POST',
         headers: {
@@ -43,6 +46,7 @@
       const card = newEl('div', {class: 'card'}) 
       const title = newEl('h4', {innerText: creator.name})
       const img = newEl('img', {src: creator.img})
+      img.style.width = '100px'
       card.appendChild(title)
       card.appendChild(img)
       ctr.appendChild(card)
